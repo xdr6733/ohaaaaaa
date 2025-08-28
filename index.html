@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Site Hacklendi</title>
+<style>
+    /* Sayfa stili */
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        background-color: black;
+        color: #00ff00;
+        font-family: "Courier New", Courier, monospace;
+    }
+
+    /* Başlık */
+    .title {
+        position: absolute;
+        top: 20px;
+        width: 100%;
+        text-align: center;
+        font-size: 3em;
+        font-weight: bold;
+        text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+    }
+
+    /* Alt yazı */
+    .subtitle {
+        position: absolute;
+        top: 80px;
+        width: 100%;
+        text-align: center;
+        font-size: 1.5em;
+        text-shadow: 0 0 5px #00ff00;
+    }
+
+    /* Canvas cmatrix */
+    canvas {
+        display: block;
+    }
+</style>
+</head>
+<body>
+
+<div class="title">SITE HACKLENDI</div>
+<div class="subtitle">Sistem güvenliği ihlal edildi</div>
+
+<canvas id="cmatrix"></canvas>
+
+<script>
+const canvas = document.getElementById('cmatrix');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const cols = Math.floor(canvas.width / 20);
+const ypos = Array(cols).fill(0);
+
+function matrix() {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = '#00ff00';
+    ctx.font = '20px monospace';
+
+    for (let i = 0; i < ypos.length; i++) {
+        const text = String.fromCharCode(33 + Math.random() * 94);
+        ctx.fillText(text, i * 20, ypos[i] * 20);
+
+        if (ypos[i] * 20 > canvas.height && Math.random() > 0.975) {
+            ypos[i] = 0;
+        } else {
+            ypos[i]++;
+        }
+    }
+}
+
+setInterval(matrix, 50);
+
+// Pencere boyutu değişince canvas'ı güncelle
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+</script>
+
+</body>
+</html>
