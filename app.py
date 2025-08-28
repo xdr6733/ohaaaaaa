@@ -75,8 +75,8 @@ window.addEventListener('resize', () => {
 def hack():
     return Response(html, mimetype='text/html')
 
+# Gunicorn için __main__ kısmı boş bırakabiliriz
 if __name__ == "__main__":
-    # Render.com PORT değişkenini kullan
     import os
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
